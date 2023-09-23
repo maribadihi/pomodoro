@@ -1,12 +1,5 @@
 <template>
   <div class="flex h-screen">
-    <!-- <div class="w-1/3 basis-1/3 flex justify-center">pomodoro</div> -->
-
-    <!-- <div class="py-24 w-1/3 flex items-center justify-center space-x-8">
-
-    <div class="w-36 h-36 bg-black rounded-full flex">
-
-      -->
 	
 	<div class=" w-1/3 flex justify-center items-center h-screen">
 		
@@ -23,16 +16,12 @@
 	</div>
 
 
-        <!-- <button class="w-0 h-0 flex flex-wrap  items-center justify-center
-  border-t-[50px] border-t-transparent
-  border-l-[75px] border-l-green-500
-  border-b-[50px] border-b-transparent"/> -->
-    <!-- </div>
-</div> -->
-
-
-    <div class="w-2/3 bg-gray-100 row-span-3 row-start-2 col-start-2"  v-if="showInfo">
-      <div class="flex flex-wrap justify-center mx-auto ">
+    <div class="w-2/3 bg-gray-100  grid grid-rows-5 grid-flow-col gap-2 grid-cols-3 my-3"  v-if="showInfo">
+        <div  class="col-start-3 flex justify-around">
+            <label >statistic</label>
+            <label >profile</label>
+        </div>
+        <div class="row-span-3 row-start-2 col-start-2">
         <mput 
           v-model="name"
           name="first_name"
@@ -45,7 +34,7 @@
           type="email"
           name="femail"
           id="femail"
-          label="Email"
+          label="Enter Email"
           class="border p-2 basis-full bg-inherit m-3"
           isValid="isValidEmail"
         />
@@ -53,35 +42,27 @@
         <br/>
         <mbutton type="primary" content="start" @click="start"/>
         <br/>
-        <mbutton type="secondary" content="cancel" />
+        <mbutton type="secondary" content="cancel" @click="cancel"/>
       </div>
+      <div class="col-start-1 col-span-3 flex justify-around row-start-5">
+            <label>Today</label>
+            <label>Week</label>
+            <label>Month</label>
+        </div>
     </div>
-    <!-- <div class="basis-full gap-x-36 flex  mt-3">
-                  <div class="flex flex-wrap mx-auto my-3">
-                    <p class="font-bold text-2xl p-1 m-2">New Task</p>
-                    <mput v-model="email" type="email" name="femail" id="femail" label="Email" 
-                    class="border p-2 basis-full bg-inherit m-3" />
-      
-                    <mput v-model="email" type="email" name="femail" id="femail" label="Email"
-                    class="border p-2 basis-full bg-inherit m-3" />
-                 
-                    <button class="basis-full border rounded-xl bg-black text-white m-3 p-2" @click="validForm()">Start</button>
-                    <button class="basis-full border rounded-xl bg-slate-200 text-black m-3 p-2" @click="reset()">Cancel</button>
-                  </div>
-                </div> -->
+
   </div>
 </template>
 <script setup>
-import { useInterval } from '@vueuse/core'
 
 
 const name = ref("");
 const email = ref("");
 const showInfo = ref(false);
 const emailValidationMsg=ref("");
-const myCounter=ref("");
+const myCounter=ref(20);
 const isValidEmail=ref(true);
-
+const interval=ref('')
 const reg=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
 
 
@@ -94,12 +75,22 @@ const reg=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-
      debugger
      if(emailValidationMsg.value=='has-success')
      {
-        myCounter.value = useInterval(1000)
+        interval.value=setInterval(() => {
+        if(myCounter.value>0){
+            myCounter.value=myCounter.value-1
+        }
+        }, 2000)
         showInfo.value=false;   
      }
   
 }
+const cancel=()=>{
+    showInfo.value=false;
+}
+
 const play=()=>{
+    myCounter.value=20;
+    clearInterval(interval.value);
     showInfo.value=true;
 }
 </script>
