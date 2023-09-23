@@ -38,7 +38,10 @@
           class="border p-2 basis-full bg-inherit m-3"
           isValid="isValidEmail"
         />
-       ddddddddddd {{ isValidEmail }}
+        ggggggggggggg{{ isValidEmail }}
+        <br/>
+        <span class="text-red-600">{{emailValidationMsg}}</span>
+
         <br/>
         <mbutton type="primary" content="start" @click="start"/>
         <br/>
@@ -63,17 +66,11 @@ const emailValidationMsg=ref("");
 const myCounter=ref(20);
 const isValidEmail=ref(true);
 const interval=ref('')
-const reg=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
 
 
- const  isEmailValid= ()=> {
-    emailValidationMsg.value = (email.value == "")? "" : (reg.test(email.value)) ? 'has-success' : 'has-error';
-     return emailValidationMsg;
-    }
     const start=()=>{
-     isEmailValid();
-     debugger
-     if(emailValidationMsg.value=='has-success')
+
+     if(isValidEmail==true)
      {
         interval.value=setInterval(() => {
         if(myCounter.value>0){

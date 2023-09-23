@@ -9,7 +9,7 @@
        :type="type"
         @blur="validate"/>
     <br/>
-    <span class="error-msg">{{emailValidationMsg}}</span>
+    <span class="text-red-600">{{emailValidationMsg}}</span>
     </div>
   </template>
   <script setup>
@@ -26,17 +26,22 @@ const props = defineProps({
 const emailValidationMsg=ref("");
 const reg=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
 const  isEmailValid= ()=> {
-    emailValidationMsg.value = (localModelValue.value == "")? "" : (reg.test(localModelValue)) ? 'has-success' : 'has-error';
-     return emailValidationMsg;
+    
+    return (localModelValue.value == "")? true : (reg.test(localModelValue.value)) ;
+     
 
     }
 
 const validate=()=>{
      if(props.type=='email')
      {           
-         if(isEmailValid()=='has-success')
+         if(isEmailValid())
          {
-           isValid=false;
+           emailValidationMsg.value=''
+         }
+         else
+         {          
+            emailValidationMsg.value='Please enter a valid email address'
          }
      }
   
