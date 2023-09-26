@@ -3,10 +3,12 @@ export const useLocalModelValue = ({ props, property = 'modelValue' }) => {
     const currentInstance = getCurrentInstance()
     
     watch(localModelValue, () => {
+      debugger
       currentInstance.emit(`update:${property}`, localModelValue.value)
     })
   
     watch(() => props[property], (newValue) => {
+      debugger
       localModelValue.value = newValue
     })
   

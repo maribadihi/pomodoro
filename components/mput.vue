@@ -5,9 +5,9 @@
       v-model="localModelValue" 
       :placeholder="label" 
       :name="name"
-       :id="id" 
-       :type="type"
-        @blur="validate"/>
+      :id="id" 
+      :type="type"
+      @blur="validate"/>
     <br/>
     <span class="text-red-600">{{emailValidationMsg}}</span>
     </div>
@@ -35,19 +35,22 @@ const  isEmailValid= ()=> {
 const validate=()=>{
      if(props.type=='email')
      {           
+       debugger
          if(isEmailValid())
          {
            emailValidationMsg.value=''
+           localIsValid.value=true;
          }
          else
          {          
             emailValidationMsg.value='Please enter a valid email address'
+            localIsValid.value=false;
          }
      }
   
 }
 
 const { localModelValue} = useLocalModelValue({ props})
-const { localModelValue:isValid} = useLocalModelValue({ props })
+const { localModelValue: localIsValid} = useLocalModelValue({ props, property: 'isValid' })
 
 </script>
