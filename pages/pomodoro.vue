@@ -52,14 +52,13 @@
           id="femail"
           label="Enter Email"
           class="border p-2 basis-full bg-inherit m-3"
-          isValid="isValidEmail"
+          v-model:isValid="isValidEmail"
         />
-        is valid:{{ isValidEmail }}
 
         <br />
         <span class="text-red-600">{{ emailValidationMsg }}</span>
         <div class="flex flex-wrap justify-center items-center w-full">
-          <mbutton type="primary" content="start" @click="start" />
+          <mbutton :disabled="!isValidEmail" type="primary" content="start" @click="start" />
           <mbutton type="secondary" content="cancel" @click="cancel" />
         </div>
       </div>

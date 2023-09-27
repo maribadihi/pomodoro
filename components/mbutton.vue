@@ -1,6 +1,6 @@
 <template>
 <div>
-    <button :class="type">{{ content }}</button>
+    <button :class="type" :disabled="isDisabled">{{ content }}</button>
 </div>
 
 </template>
@@ -9,8 +9,12 @@
 
 const props = defineProps({
   content: string(),
+  disabled:bool().def(true),
   type:oneOf(['primary', 'secondary']).def('primary')
 })
+
+const { localModelValue} = useLocalModelValue({ props})
+const { localModelValue: isDisabled} = useLocalModelValue({ props, property: 'disabled' })
 </script>
 <style scoped>
 .primary{
